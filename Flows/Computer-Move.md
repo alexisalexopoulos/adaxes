@@ -1,6 +1,6 @@
 # Move computer flow
 
-The `Move Computer`flow works as follows:
+The `Move Computer` flow allows the SD to move computers, if the source and destination meet the requirements.
 
 ```mermaid
 flowchart-elk TB
@@ -14,7 +14,7 @@ subgraph source[Source OU]
     otr[OTR]
 end
 subgraph destination[Destination OU]
-    cam2[Campus]
+    cam2(Campus)
     cha2[Chambers]
     cou2[Courtrooms]
     epn2[Externals]
@@ -22,5 +22,5 @@ subgraph destination[Destination OU]
     otr2[OTR]
 end
 source --> destination
-destination --> move[[Move Computer]]
+destination --> move[[Move Computer allowed]]
 ```
