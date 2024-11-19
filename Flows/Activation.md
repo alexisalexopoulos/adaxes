@@ -56,7 +56,7 @@ flowchart-elk
         direction LR
         END
     end
-%%define IDs
+%%define IDs%%
     protectedOU{user in protected OU}
     noBadge{user has badgeID}
 %%logic linking
