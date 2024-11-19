@@ -1,10 +1,7 @@
 ```mermaid
 flowchart-elk
-    subgraph validation [validation]
-        direction TB
-        UmraPoc{In UmpraPoc}
-    end
     subgraph initial [initial configuration]
+    direction LR
         PWD[Reset Password]-->changePWD0[set 'User must change password at next logon']
         changePWD0 --> changePWD1[Set 'User cannot change password to NO']
         changePWD1 --> changePWD2[Set 'Password never expires to NO']
@@ -59,10 +56,16 @@ flowchart-elk
         direction LR
         END
     end
+%%define IDs
+    protectedOU{user in protected OU}
+    noBadge{user has badgeID}
 %%logic linking
-    start((start)) -- check requirement --> validation
-    validation --> |NO| AccessDenied[access Denied]
-    validation --> |YES| initial
+    start((start)) -- check requirement --> umra{In UmpraPoc}
+    umra ---> |YES| protectedOU  
+    umra --> |NO| AccessDenied[access Denied]
+    protectedOU --> |YES| AccessDenied
+    protectedOU -->|NO| noBadge --> |NO|AccessDenied
+    noBadge --> |YES|initial
     initial --> OrganSelection[Organ Selection]
     OrganSelection --> OTP
     OrganSelection --> Chambers
