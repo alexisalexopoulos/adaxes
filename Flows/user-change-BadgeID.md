@@ -3,18 +3,17 @@ flowchart-elk
 %% Nodes
 start((start))
 hasbadgeID{has badge ID}
-protectedOU{User in protected OU}
-accessdenied[accessdenied]
+accessdenied[access denied]
 badgeidpresent{account already present with badge ID}
-copybadgeIDtarget[copy badge ID from inactive user to active user]
-copybadgeIDsource[copy badge ID from Active user to inactive user]
+setbadgeIDtarget[set badge ID from inactive user to active user]
 replaceID[replace existing badge ID]
+deprovision[deprovision newly created account]
+delete[delete newly created account]
 finish((end))
 %%linking
-start -->hasbadgeID --> protectedOU
+start -->hasbadgeID
 hasbadgeID --> |NO| accessdenied
-protectedOU --> |YES| accessdenied
-protectedOU -->|NO| badgeidpresent
-badgeidpresent --> |YES| copybadgeIDtarget --> copybadgeIDsource --> finish
+hasbadgeID --> |YES| badgeidpresent
+badgeidpresent --> |YES| setbadgeIDtarget -->deprovision-->  delete --> finish
 badgeidpresent -->|NO|replaceID --> finish
 ```
