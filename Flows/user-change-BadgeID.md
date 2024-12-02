@@ -2,19 +2,15 @@
 flowchart-elk
 %% Nodes
 start((start))
-hasbadgeID{has badge ID}
-accessdenied[access denied]
 umrapoc{Account with same badgeID in UmraPoC}
-badgeidpresent{account already present with badge ID}
-setbadgeIDtarget[set badge ID from current user to inactive user]
+badgeidpresent{account already present with same badge ID}
+setbadgeIDtarget[set badge ID from current user to inactive user in UmraPoC]
 replaceID[replace existing badge ID on active account with given badgeID]
-deprovision[start deprovision flow inactive newly created account]
+deprovision[start deprovision flow inactive user in UmraPoC]
 cancel[cancel operation]
 finish((end))
 %%linking
-start -->hasbadgeID
-hasbadgeID --> |NO| accessdenied
-hasbadgeID --> |YES| badgeidpresent
+start -->badgeidpresent
 badgeidpresent --> |YES|umrapoc
 umrapoc --> |NO| cancel
 umrapoc --> |YES| setbadgeIDtarget--> replaceID --> deprovision -->  finish
